@@ -16,7 +16,7 @@ public class DGS {
                 String line = br.readLine();
                 String[] arrLine = (line.split("\\s+"));
                 for(Integer j = 1; j <= n; j++){ //For each good/edge
-                    b.itemValuations.put(j, Integer.valueOf(arrLine[j-1]));
+                    b.itemValuations.put(j, Double.valueOf(arrLine[j-1]));
                 }
                 bidders.put(i, b);
             }
@@ -24,10 +24,10 @@ public class DGS {
         return bidders;
     }
 
-    public static Map<Integer, Integer> LoadGoodsPrice(Integer count){
-        Map<Integer, Integer> goodsPrice = new HashMap<>(); //goodsItemID, price
+    public static Map<Integer, Double> LoadGoodsPrice(Integer count){
+        Map<Integer, Double> goodsPrice = new HashMap<>(); //goodsItemID, price
         for(int i = 1; i <= count; i++)
-            goodsPrice.put(i, 0);
+            goodsPrice.put(i, 0.0);
 
         return goodsPrice;
     }
@@ -46,6 +46,14 @@ public class DGS {
             q.add(bidders.get(i));
 
         return q;
+    }
+
+    public static Map<Integer, Double> LoadWinningPrices(Integer count){
+        Map<Integer, Double> winningPrices = new HashMap<>();
+        for(int i = 1; i <= count; i++)
+            winningPrices.put(i, 0.0);
+
+        return winningPrices;
     }
 
 }
