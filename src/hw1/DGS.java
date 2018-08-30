@@ -2,29 +2,23 @@ package hw1;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 public class DGS {
-
-
-    Map<Integer, Integer> goodsOwner; //goodsItemID, owner (bidderNodeID)
-    Queue<Bidder> bidderQueue;
 
     public static Map<Integer, Bidder> LoadInput (String inputFile){
         Map<Integer, Bidder> bidders = new HashMap<>();  //bidderNodeID, Bidder object
         try{
             BufferedReader br = new BufferedReader(new FileReader(inputFile));
             int n = Integer.valueOf(br.readLine());
-            for(int i = 0; i < n; i++){ //For each bidder
-                Bidder b = new Bidder(i+1);
+            for(Integer i = 1; i <= n; i++){ //For each bidder
+                Bidder b = new Bidder(i);
                 String line = br.readLine();
                 String[] arrLine = (line.split("\\s+"));
-                for(int j = 0; j < n; j++){ //For each good/edge
-                    b.itemValuations.put(j+1, Integer.valueOf(arrLine[j]));
+                for(Integer j = 1; j <= n; j++){ //For each good/edge
+                    b.itemValuations.put(j, Integer.valueOf(arrLine[j-1]));
                 }
-                bidders.put(i+1, b);
+                bidders.put(i, b);
             }
         }catch (Exception e) {System.out.println("Exception!: " + e);}
         return bidders;
@@ -44,6 +38,14 @@ public class DGS {
             goodsOwner.put(i, 0);
 
         return goodsOwner;
+    }
+
+    public static Queue<Bidder> InitBidderQueue(Map<Integer, Bidder> bidders){
+        Queue<Bidder> q = new LinkedList<>();
+        for(int i = 1; i <= bidders.size(); i++)
+            q.add(bidders.get(i));
+
+        return q;
     }
 
 }

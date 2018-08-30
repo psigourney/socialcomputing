@@ -1,12 +1,13 @@
 package hw1;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Bidder {
-    Integer id;     //NodeID
-    Map<Integer, Integer> itemValuations; //goodsItemId, bidder's valuation (edge weight)
+    int id;     //NodeID
+    Map<Integer, Integer> itemValuations = new HashMap<>(); //goodsItemId, bidder's valuation (edge weight)
 
-    Bidder(Integer idParam){
+    Bidder(int idParam){
         id = idParam;
     }
 
@@ -14,4 +15,5 @@ public class Bidder {
     public String toString(){
         return Integer.toString(id) + ": " + itemValuations;
     }
+
 }

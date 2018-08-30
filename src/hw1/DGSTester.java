@@ -3,29 +3,29 @@ package hw1;
 
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Queue;
 
 
 public class DGSTester {
 
     @Test
-    public static void Tester(){
-        Map<Integer, Bidder> bidders = new HashMap<>();
-        bidders = DGS.LoadInput("input.txt");
+    public void Tester(){
+
+
+        Map<Integer, Bidder> bidders = DGS.LoadInput("./src/hw1/input.txt");
         assert(bidders.size() == 3);
 
-        Map<Integer, Integer> goodsPrice = new HashMap<>(); //goodsItemID, price
-        goodsPrice = DGS.LoadGoodsPrice(bidders.size());
+        Map<Integer, Integer> goodsPrice = DGS.LoadGoodsPrice(bidders.size()); //goodsItemID, price
         assert(goodsPrice.size() == bidders.size());
 
-        Map<Integer, Integer> goodsOwner = new HashMap<>(); //goodsItemID, price
-        goodsOwner = DGS.LoadGoodsOwner(bidders.size());
+        Map<Integer, Integer> goodsOwner = DGS.LoadGoodsOwner(bidders.size()); //goodsItemID, price
         assert(goodsOwner.size() == bidders.size());
 
+        Queue<Bidder> bidderQueue = DGS.InitBidderQueue(bidders);
+        assert(bidderQueue.size() == bidders.size());
 
-
-
+        System.out.println("bidders: " + bidders);
 
     }
 }
