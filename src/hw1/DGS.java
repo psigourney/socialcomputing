@@ -48,12 +48,4 @@ public class DGS {
         return q;
     }
 
-    public static Map<Integer, Double> LoadWinningPrices(Integer count){
-        Map<Integer, Double> winningPrices = new HashMap<>();
-        for(int i = 1; i <= count; i++)
-            winningPrices.put(i, 0.0);
-
-        return winningPrices;
-    }
-
 }

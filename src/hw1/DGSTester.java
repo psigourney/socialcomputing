@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Queue;
 
 
+//TODO:  Move all this logic into the DGS class
+
 public class DGSTester {
 
     @Test
@@ -21,16 +23,14 @@ public class DGSTester {
         Map<Integer, Integer> goodsOwner = DGS.LoadGoodsOwner(bidders.size()); //goodsItemID, Owner's Bidder ID
         assert(goodsOwner.size() == bidders.size());
 
-        Map<Integer, Double> winningPrices = DGS.LoadWinningPrices(bidders.size()); //goodsItemID, winning price
-
         Queue<Bidder> bidderQueue = DGS.InitBidderQueue(bidders);
         assert(bidderQueue.size() == bidders.size());
 
         double deltaVal = 1.0/(bidders.size()+1);
+        assert(deltaVal > 0.0);
         System.out.println("deltaVal: " + deltaVal);
 
-        int loopCounter = 0;
-
+        int loopCounter = 0;  //TODO: Remove loopCounter after testing
         while(!bidderQueue.isEmpty() && loopCounter < 100){
             loopCounter += 1;
 
@@ -38,7 +38,7 @@ public class DGSTester {
             System.out.println("\ncurrBidder: " + currBidder.id);
 
             int maxItem = 0;
-            double maxValue = 0;
+            double maxValue = 0.0;
             //Find the item with the highest valuation to the current bidder
             for(int x = 1; x <= currBidder.itemValuations.size(); x++){
                 if(currBidder.itemValuations.get(x) - goodsPrice.get(x) > maxValue){
@@ -55,10 +55,10 @@ public class DGSTester {
                     currOwner.ownsItem = 0;      //You own nothing, sir!
                     bidderQueue.add(currOwner);  //Current owner of maxItem goes back into the queue
                 }
-                currBidder.ownsItem = maxItem;                       //Bidder owns the item.
-                goodsOwner.put(maxItem, currBidder.id);              //BidderID now owns the item
                 double currPrice = goodsPrice.get(maxItem);
-                winningPrices.replace(maxItem, currPrice);
+                currBidder.ownsItem = maxItem;                       //Bidder owns the item.
+                currBidder.purchPrice = currPrice;                   //Price bidder paid for item.
+                goodsOwner.put(maxItem, currBidder.id);              //BidderID now owns the item
                 goodsPrice.replace(maxItem, (currPrice + deltaVal));
                 System.out.println("Bidder " + currBidder.id + " bought item " + maxItem + " for $" + currPrice + "; new price: " + (currPrice+deltaVal));
             }
@@ -67,7 +67,7 @@ public class DGSTester {
         System.out.println("LoopCounter: " + loopCounter);
         double totalWeight = 0.0;
         for(int x = 1; x <= bidders.size(); x++){
-            totalWeight += winningPrices.get(x);
+            totalWeight += bidders.get(x).purchPrice;
         }
 
         System.out.println("Total matching weight: " + totalWeight);
