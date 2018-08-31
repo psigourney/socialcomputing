@@ -1,4 +1,3 @@
-package hw1;
 
 
 import org.junit.Test;
@@ -26,7 +25,7 @@ public class DGSTester {
         Queue<Bidder> bidderQueue = DGS.InitBidderQueue(bidders);
         assert(bidderQueue.size() == bidders.size());
 
-        double deltaVal = 1.0/(bidders.size()+1);
+        final double deltaVal = 1.0/(bidders.size()+1);
         assert(deltaVal > 0.0);
         System.out.println("deltaVal: " + deltaVal);
 
@@ -39,6 +38,7 @@ public class DGSTester {
 
             int maxItem = 0;
             double maxValue = 0.0;
+
             //Find the item with the highest valuation to the current bidder
             for(int x = 1; x <= currBidder.itemValuations.size(); x++){
                 if(currBidder.itemValuations.get(x) - goodsPrice.get(x) > maxValue){
@@ -52,7 +52,8 @@ public class DGSTester {
                 if(goodsOwner.get(maxItem) > 0){            //If item is already owned
                     Bidder currOwner = bidders.get(goodsOwner.get(maxItem));
                     System.out.println("currentOwner " + currOwner.id + " is out.");
-                    currOwner.ownsItem = 0;      //You own nothing, sir!
+                    currOwner.ownsItem = 0;      //You own nothing, sir!...
+                    currOwner.purchPrice = 0.0;  //But the price is right
                     bidderQueue.add(currOwner);  //Current owner of maxItem goes back into the queue
                 }
                 double currPrice = goodsPrice.get(maxItem);
@@ -64,7 +65,7 @@ public class DGSTester {
             }
         }
 
-        System.out.println("LoopCounter: " + loopCounter);
+        System.out.println("\nLoopCounter: " + loopCounter);
         double totalWeight = 0.0;
         for(int x = 1; x <= bidders.size(); x++){
             totalWeight += bidders.get(x).purchPrice;
