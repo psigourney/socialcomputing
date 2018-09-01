@@ -80,6 +80,8 @@ public class DGS {
             return;
         }
 
+        long startTime=System.nanoTime();
+
         Map<Integer, Bidder> bidders = DGS.LoadInput(args[0]);
         assert(bidders.size() == 3);
 
@@ -130,6 +132,10 @@ public class DGS {
                 //System.out.println("Bidder " + currBidder.id + " bought item " + maxItem + " for $" + currPrice + "; new price: " + (currPrice+deltaVal));
             }
         }
+
+        long endTime = System.nanoTime();
+        long totalTime=endTime-startTime;
+        System.out.println("Total time taken for <DGS/KM> is "+totalTime);
 
         //System.out.println("\nLoopCounter: " + loopCounter);
         double totalWeight = 0.0;
