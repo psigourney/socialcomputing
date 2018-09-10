@@ -11,7 +11,10 @@ Each node in A is connected to at least d nodes in B, therefore there are >= (n 
 2) Show that Konig-Egarvary Theorem implies Hall's Theorem.
 
 Konig-Egarvary: For any bipartite graph, max matching size == min vertex cover (duality!)
-Hall's Theorem:  Perfect matching is possible iff there is no constricted set.
+Vertex cover is a subset of nodes where every node in the graph is adjacent to at least one node in the subset/cover.
+
+Hall's Theorem:  Perfect matching is possible iff there is no constricted set, ie: |s| <= |N(s)|
+(more recipients than senders... implying that every sender will have a recipient and we have perfect matching)
 
 
 3) Show that any r x n Soduku can be extended to (r+1) x n whenever r < n.
