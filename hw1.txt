@@ -1,0 +1,13 @@
+Social Computing - Fall 2018
+HW1
+Patrick Sigourney
+Robert Pate
+
+1) Show a perfect matching exists between set A and set B where each node in A is connected to at least d nodes in B (where d >= 1) and each node in B is connected to at most d nodes in A.
+
+Each node in A is connected to at least d nodes in B, therefore there are >= (n * d) incoming edges from A to B.  Because each node in B can have at most d incoming edges: 
+(total incoming edges / max edges per B node) == (n * d) / (d) == at least n nodes in B will receive an edge from an element in A. And since n = |A| = |B|, there is a perfect matching from A to B.
+
+2) Show that Konig-Egarvary Theorem implies Hall's Theorem.
+
+3) Show that any r x n Soduku can be extended to (r+1) x n whenever r < n.
