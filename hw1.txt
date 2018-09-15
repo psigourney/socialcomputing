@@ -5,11 +5,31 @@ Robert Pate
 
 1) Show a perfect matching exists between set A and set B where each node in A is connected to at least d nodes in B (where d >= 1) and each node in B is connected to at most d nodes in A.
 
+<<<<<<< HEAD
 Each element of A has at least d edges; there are at least (n*d) outgoing edges from set A to set B.
 Each element of B has at most d edges; there are at most (n*d) inbound edges to set B from set A.
 This implies there are EXACTLY (n*d) edges between set A and set B.
 Because there are (n*d) inbound edges to B, and each node in B can have a maximum of d edges, this ensures that all n elements of B will have at least one inbound edge from a node in A:  nd inbound edges / max of d edges per node = n nodes with at least 1 edge.
 Therefore, iff |B| >= |A|, there will always be perfect matching.
+=======
+Each node in A is connected to at least d nodes in B, therefore there are >= (n * d) incoming edges from A to B.  Because each node in B can have at most d incoming edges: (total incoming edges / max edges per B node) == (n * d) / (d) == at least n nodes in B will receive an edge from an element in A. And since n = |A| = |B|, there is a perfect matching from A to B.
+
+Base case: n = |A| = |B| = 1;  d = 1
+Each node in A has at least 1 outgoing edge, each node in B has at most 1 incoming edge.
+|A| = 1 => ( |E| >= 1 )
+|B| = 1 => ( |E| <= 1 )
+Therefore |E| == 1;
+(n=1 ^ |E|=1) => |M| = 1 and perfect matching.
+
+Induction case 1: n = 2; d = 1
+Each node in A has at least 1 outgoing edge (|E| = 1n = 2).
+Each node in B can have at most 1 incoming edge, there are a total of 2 edges and B contains 2 nodes, therefore each node in B has 1 incoming edge .  |M|=2 == n therefore we have perfect matching.
+
+Induction case 2: n = 2; d = 2
+Each node in A has at least 2 outgoing edges (|E| = 2n = 4). 
+Each node in B can have at most 2 incoming edges, there are a total of 4 edges and B contains 2 nodes, therefore each node in B has 2 incoming edges
+
+>>>>>>> 6b99edd99366498e9d80e99cca2473720ca2c350
 
 
 2) Show that Konig-Egarvary Theorem implies Hall's Theorem. (TODO)
