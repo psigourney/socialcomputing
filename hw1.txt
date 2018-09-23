@@ -12,13 +12,36 @@ Because there are (n*d) inbound edges to B, and each node in B can have a maximu
 Therefore, iff |B| >= |A|, there will always be perfect matching.
 
 
-2) Show that Konig-Egarvary Theorem implies Hall's Theorem. (TODO)
+2) Show that Konig-Egarvary Theorem implies Hall's Theorem.
+Assume Konig-Egarvary: For any bipartite graph, max matching size == min vertex cover
+Given a graph G = (X + Y, E), assume the sides of X and Y start off empty. 
 
-Konig-Egarvary: For any bipartite graph, max matching size == min vertex cover (duality!)
-Vertex cover is a subset of nodes where every node in the graph is adjacent to at least one node in the subset/cover.
+Add one new vertex to X with one new neighbor in Y.
+Min vertex cover, max matching, and total vertices in X all = 1.
+When all these numbers match, perfect matching is possible.
+Say we repeat this kind of addition any number of times. Perfect matching stays possible since the numbers always increment by one together.
 
-Hall's Theorem:  Perfect matching is possible iff there is no constricted set, ie: |s| <= |N(s)|
-(more recipients than senders... implying that every sender will have a recipient and we have perfect matching)
+We can attempt to complicate this expanding the neighbors of the new X vertices to include existing Y vertices in addition to their new Y neighbor. But since these extra edges reach Y vertices which are already connected to an X, the minimum vertex cover still increases only by 1. Therefore the maximum matching and the total X vertices are still incremented equally, allowing for perfect matching.
+
+The only way to increment the number of X vertices without incrementing the minimum vertex cover (to make a perfect match impossible) would be to add a new X vertex without a new neighbor. This is a constricted set because the count of X vertices (1) is greater than its neighbors (0). Therefore perfect matching is always possible unless there is a constricted set (Hall's Theorem).
+
+Another way to put it:
+	1. Start with a bipartite graph with both X and Y sides null.
+	2. Add a new X with 1 new neighbor, giving us perfect matching.
+	3. Add one new X with any number of new or existing neighbors, and repeat to discover what prevents perfect matching
+	4. Scenarios:
+		a. One new X with 1 or more new neighbors only
+			i. Perfect matching uninterrupted, min vertex cover & X vertex count increase by 1
+		b. One new X with 1 or more existing neighbors only
+			i. Perfect matching broken: Existing neighbors do not increase min vertex cover, but our number of X vertices does increase. Now Max Matches < X Vertices
+		c. One new X with 1 or more new and 1 or more existing
+			i. Existing neighbors since they do not increase min vertex cover and can be ignored
+			ii. Max Matches +1 = X Vertices + 1
+		d. One new X with 0 neighbors
+			i. Perfect Matching broken: min vertex cover unaffected but number of X vertices increased.
+	5. Therefore, perfect matching is always possible as long as the Minimum Vertex Cover is the entire set of X, and the only way to increment them separately is to add an X without a corresponding Y neighbor, aka adding a constricted set.
+In other words, perfect matching is possible iff there is no constricted set which is Hall's Theorem.
+
 
 
 3) Show that any r x n Soduku can be extended to (r+1) x n whenever r < n.
